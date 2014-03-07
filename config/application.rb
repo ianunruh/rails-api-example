@@ -46,5 +46,10 @@ module Myapp
     config.after_initialize do
       config.consider_all_requests_local = false
     end
+
+    # Use custom controller for unhandled exceptions
+    config.exceptions_app = lambda { |env|
+      ExceptionsController.action(:unhandled_exception).call(env)
+    }
   end
 end
