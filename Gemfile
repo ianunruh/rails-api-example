@@ -25,3 +25,12 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+group :development do
+  gem 'thin'
+end
+
+group :test do
+  gem 'json_spec'
+  gem 'rspec-rails'
+end
