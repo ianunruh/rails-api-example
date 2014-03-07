@@ -27,5 +27,24 @@ module Myapp
 
     # Disable the asset pipeline.
     config.assets.enabled = false
+
+    # Remove browser-related headers
+    config.action_dispatch.default_headers = {
+      'X-Content-Type-Options' => 'nosniff'
+    }
+
+    # Remove browser-related middleware
+    [ 'ActionDispatch::Cookies',
+      'ActionDispatch::Flash',
+      'ActionDispatch::Session::CookieStore',
+      'Rack::MethodOverride',
+    ].each do |name|
+      config.middleware.delete name
+    end
+
+    # Never use templates for displaying errors
+    config.after_initialize do
+      config.consider_all_requests_local = false
+    end
   end
 end
