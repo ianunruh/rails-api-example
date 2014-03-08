@@ -11,14 +11,16 @@ class ApplicationController < ActionController::Base
     }
   end
 
-  rescue_from ActiveRecord::RecordNotUnique do
+  rescue_from ActiveRecord::RecordNotUnique, with: :render_conflict
+
+  private
+
+  def render_conflict
     render status: :conflict, json: {
       error: 'conflict',
       error_description: 'The request conflicted with an existing resource'
     }
   end
-
-  private
 
   def render_not_implemented
     render status: :not_implemented, json: {
